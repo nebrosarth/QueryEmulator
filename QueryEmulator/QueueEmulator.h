@@ -2,6 +2,7 @@
 
 #include <QtWidgets/QWidget>
 #include "Desk.h"
+#include <set>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class QueueEmulator; };
@@ -18,5 +19,5 @@ public:
 
 private:
     Ui::QueueEmulator* ui;
-    std::vector<Desk*> desks;
+    std::set<Desk> desks;
 };

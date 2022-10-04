@@ -8,6 +8,12 @@ Desk::Desk(QWidget *parent)
 	ui->setupUi(this);
 }
 
+Desk::Desk(const Desk& d)
+{
+	ui->setupUi(this);
+	queues = d.queues;
+}
+
 void Desk::UpdateQuantity(const int quantity)
 {
 	const int delta = quantity - queues.size();

@@ -21,26 +21,24 @@ void QueueEmulator::UpdateQuantity(const int quantity)
 	{
 		for (int i = 0; i < delta; ++i)
 		{
-			Desk* desk = new Desk(this);
-			desk->UpdateQuantity(quantity);
-			ui->DesksLayout->addWidget(desk);
-			desks.push_back(desk);
+			Desk desk = Desk(this);
+			desk.UpdateQuantity(quantity);
+			ui->DesksLayout->addWidget(&desk);
+			desks.insert(std::move(desk));
 		}
 	}
 	else
 	{
-		for (int i = desks.size() + delta; i < desks.size(); ++i)
-			delete desks[i];
-		desks.erase(desks.end() + delta, desks.end());
+		auto it = desks.end();
+		for (int i = 0; i < -delta; ++i)
+		{
+			it = desks.erase(it);
+		}
 		auto c = ui->DesksLayout->children();
 	}
 }
 
 QueueEmulator::~QueueEmulator()
 {
-	for (int i = 0; i < desks.size(); ++i)
-	{
-		delete desks[i];
-	}
 	delete ui;
 }
