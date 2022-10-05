@@ -1,34 +1,34 @@
 #pragma once
 
-#include <QWidget>
-#include "Queue.h"
-#include <vector>
+#include <QObject>
+#include "DeskView.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui { class DeskClass; };
-QT_END_NAMESPACE
-
-class Desk : public QWidget
+class Desk  : public QObject
 {
 	Q_OBJECT
 
 public:
-	Desk(QWidget *parent = nullptr);
+	Desk(DeskView* view, QObject *parent=nullptr);
 	Desk(const Desk& d);
 	void UpdateQuantity(const int quantity);
 
 	auto operator<=>(const Desk& d2) const
 	{
-		return this->queues.size() <=> d2.queues.size();
+		return this->people_count <=> d2.people_count;
 	}
 	bool operator==(const Desk& d2) const
 	{
-		return this->queues.size() == d2.queues.size();
+		return this->people_count == d2.people_count;
+	}
+	Desk& operator=(const Desk& DeskView)
+	{
+		people_count = DeskView.people_count;
+		/*...*/
+		return *this;
 	}
 
 	~Desk();
 
 private:
-	Ui::DeskClass *ui;
-	std::vector<Queue*> queues;
+	int people_count = 0;
 };

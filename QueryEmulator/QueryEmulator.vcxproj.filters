@@ -40,23 +40,35 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Desk.cpp">
+    <ClCompile Include="DeskView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Queue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Worker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Desk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Desk.h">
+    <QtMoc Include="DeskView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Queue.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Worker.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Desk.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="Desk.ui">
+    <QtUic Include="DeskView.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="Queue.ui">

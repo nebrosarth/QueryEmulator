@@ -1,8 +1,9 @@
 #pragma once
 
 #include <QtWidgets/QWidget>
-#include "Desk.h"
-#include <set>
+
+class Worker;
+class DeskView;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class QueueEmulator; };
@@ -14,10 +15,11 @@ class QueueEmulator : public QWidget
 
 public:
     QueueEmulator(QWidget *parent = nullptr);
-    void UpdateQuantity(const int quantity);
+    DeskView* CreateDeskView();
+    void DeleteLastDeskView();
     ~QueueEmulator();
 
 private:
+    Worker* worker;
     Ui::QueueEmulator* ui;
-    std::set<Desk> desks;
 };

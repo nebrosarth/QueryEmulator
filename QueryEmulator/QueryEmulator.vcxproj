@@ -91,21 +91,29 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Desk.cpp" />
+    <ClCompile Include="Worker.cpp" />
     <QtRcc Include="QueryEmulator.qrc" />
-    <QtUic Include="Desk.ui" />
+    <QtUic Include="DeskView.ui" />
     <QtUic Include="Queue.ui" />
     <QtUic Include="QueueEmulator.ui" />
     <QtMoc Include="QueueEmulator.h" />
-    <ClCompile Include="Desk.cpp" />
+    <ClCompile Include="DeskView.cpp" />
     <ClCompile Include="Queue.cpp" />
     <ClCompile Include="QueueEmulator.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Desk.h" />
+    <QtMoc Include="DeskView.h" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Queue.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Worker.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="Desk.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

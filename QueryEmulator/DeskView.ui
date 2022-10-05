@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DeskClass</class>
- <widget class="QWidget" name="DeskClass">
+ <class>DeskView</class>
+ <widget class="QWidget" name="DeskView">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,9 +11,9 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Desk</string>
+   <string>DeskView</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QGridLayout" name="gridLayout1">
    <item row="0" column="0">
     <widget class="QScrollArea" name="scrollArea">
      <property name="frameShape">
@@ -39,8 +39,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>487</width>
-        <height>407</height>
+        <width>382</width>
+        <height>243</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
