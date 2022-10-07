@@ -43,7 +43,7 @@
     <ClCompile Include="DeskView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Queue.cpp">
+    <ClCompile Include="PersonView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Worker.cpp">
@@ -52,12 +52,15 @@
     <ClCompile Include="Desk.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UtilsService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="DeskView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="Queue.h">
+    <QtMoc Include="PersonView.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Worker.h">
@@ -66,12 +69,15 @@
     <QtMoc Include="Desk.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="UtilsService.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="DeskView.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="Queue.ui">
+    <QtUic Include="PersonView.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

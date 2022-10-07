@@ -3,22 +3,23 @@
 #include "Desk.h"
 
 Worker::Worker(QueueEmulator* parent)
-	: QObject(parent), emu(parent)
+	: QObject(parent), m_view(parent)
 {
 
 }
 
-void Worker::SetDeskQuantity(const int quantity)
+void Worker::PendDeskQuantity(const int quantity)
 {
-	const int current_size = desks.size();
-	if (!is_sorted)
-		Sort();
+	const int current_size = m_desks.size();
 	if (quantity > current_size)
 	{
 		for (int i = 0; i < quantity - current_size; ++i)
 		{
-			auto view = emu->CreateDeskView();
-			Desk desk(view);
+			DeskView* deskView = m_view->CreateDeskView();
+			Desk* desk = new Desk(deskView);
+			connect(this, QOverload<int>::of(&Worker::changed_p), desk, &Desk::SetPeopleIncome);
+			connect(this, QOverload<int>::of(&Worker::changed_t), desk, &Desk::SetTimeInterval);
+			connect(desk, QOverload<int>::of(&Desk::changed_people), deskView, &DeskView::SetPeopleCount);
 			Add(desk);
 		}
 	}
@@ -26,27 +27,48 @@ void Worker::SetDeskQuantity(const int quantity)
 	{
 		for (int i = 0; i < current_size - quantity; ++i)
 		{
-			emu->DeleteLastDeskView();
+			m_view->DeleteLastDeskView();
 			DeleteLast();
 		}
 	}
 }
 
-void Worker::Add(Desk& desk)
+void Worker::Add(Desk* desk)
 {
-	desks.push_back(std::move(desk));
-	is_sorted = false;
+	m_desks.push_back(desk);
+	m_isSorted = false;
 }
 
 void Worker::DeleteLast()
 {
-	desks.pop_back();
-	is_sorted = false;
+	m_desks.pop_back();
 }
 
 void Worker::Sort()
 {
-	std::sort(desks.begin(), desks.end());
+	std::sort(m_desks.begin(), m_desks.end());
+}
+
+void Worker::SetP(const int val)
+{
+	m_p = val;
+	changed_p(val);
+}
+
+int Worker::GetP() const
+{
+	return m_p;
+}
+
+void Worker::SetT(const int val)
+{
+	m_t = val;
+	changed_t(val);
+}
+
+int Worker::GetT() const
+{
+	return m_t;
 }
 
 Worker::~Worker()

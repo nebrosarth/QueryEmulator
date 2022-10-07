@@ -10,15 +10,20 @@ QueueEmulator::QueueEmulator(QWidget* parent)
 	, ui(new Ui::QueueEmulator())
 {
 	ui->setupUi(this);
-	worker = new Worker(this);
+	m_Worker = new Worker(this);
 	QThread* thread = new QThread();
-	worker->moveToThread(thread);
-	//connect(ui->pb_PauseResume, SIGNAL(clicked()), worker, SLOT(zaloopa()));
-	//connect(ui->pb_PauseResume, &QPushButton::clicked, worker, &Worker::zaloopa);
-	//thread->start();
-	connect(ui->sb_n, QOverload<int>::of(&QSpinBox::valueChanged), this, [this]()
+	m_Worker->moveToThread(thread);
+	connect(ui->sb_n, QOverload<int>::of(&QSpinBox::valueChanged), m_Worker, [this]()
 		{
-			//UpdateQuantity(ui->sb_n->value());
+			m_Worker->PendDeskQuantity(ui->sb_n->value());
+		});
+	connect(ui->sb_p, QOverload<int>::of(&QSpinBox::valueChanged), m_Worker, [this]()
+		{
+			m_Worker->SetP(ui->sb_p->value());
+		});
+	connect(ui->dp_t, QOverload<double>::of(&QDoubleSpinBox::valueChanged), m_Worker, [this]()
+		{
+			m_Worker->SetT(ui->dp_t->value() * 1000);
 		});
 }
 
@@ -31,8 +36,10 @@ DeskView* QueueEmulator::CreateDeskView()
 
 void QueueEmulator::DeleteLastDeskView()
 {
-	auto view = *ui->DesksLayout->children().end();
-	delete view;
+	const int items_count = ui->DesksLayout->count();
+	auto item = ui->DesksLayout->itemAt(items_count - 1)->widget();
+	if(item)
+		delete item;
 }
 
 QueueEmulator::~QueueEmulator()

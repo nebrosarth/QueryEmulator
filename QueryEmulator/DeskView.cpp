@@ -1,6 +1,6 @@
 #include "DeskView.h"
 #include "ui_DeskView.h"
-#include "Queue.h"
+#include "PersonView.h"
 
 DeskView::DeskView(QWidget *parent)
 	: QWidget(parent)
@@ -9,14 +9,14 @@ DeskView::DeskView(QWidget *parent)
 	ui->setupUi(this);
 }
 
-void DeskView::UpdateQuantity(const int quantity)
+void DeskView::SetPeopleCount(const int quantity)
 {
 	const int delta = quantity - ui->QueuesLayout->children().count();
 	if (delta > 0)
 	{
 		for (int i = 0; i < delta; ++i)
 		{
-			Queue* queue = new Queue(this);
+			PersonView* queue = new PersonView(this);
 			ui->QueuesLayout->addWidget(queue);
 		}
 	}

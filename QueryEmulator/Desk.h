@@ -10,25 +10,34 @@ class Desk  : public QObject
 public:
 	Desk(DeskView* view, QObject *parent=nullptr);
 	Desk(const Desk& d);
-	void UpdateQuantity(const int quantity);
+	void SetPeopleCount(const int quantity);
+	void SetPeopleIncome(const int val);
+	void SetTimeInterval(const int val);
 
 	auto operator<=>(const Desk& d2) const
 	{
-		return this->people_count <=> d2.people_count;
+		return this->m_peopleCount <=> d2.m_peopleCount;
 	}
 	bool operator==(const Desk& d2) const
 	{
-		return this->people_count == d2.people_count;
+		return this->m_peopleCount == d2.m_peopleCount;
 	}
 	Desk& operator=(const Desk& DeskView)
 	{
-		people_count = DeskView.people_count;
+		m_peopleCount = DeskView.m_peopleCount;
 		/*...*/
 		return *this;
 	}
 
 	~Desk();
 
+signals:
+	void changed_people(const int val);
+
 private:
-	int people_count = 0;
+	QTimer* timer;
+	int m_peopleCount = 1;
+	bool m_running = true;
+	int m_maxPeopleIncome = 0;
+	int m_maxTimeInterval = 1000;
 };

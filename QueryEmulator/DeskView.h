@@ -13,7 +13,7 @@ class DeskView : public QWidget
 
 public:
 	DeskView(QWidget *parent = nullptr);
-	void UpdateQuantity(const int quantity);
+	void SetPeopleCount(const int quantity); //хглемхрэ йнк-бн йюяя
 
 	~DeskView();
 

@@ -12,17 +12,25 @@ class Worker : public QObject
 
 public:
 	Worker(QueueEmulator* parent = nullptr);
-	void SetDeskQuantity(const int quantity); //хглемхрэ йнк-бн йюяя
-	void Add(Desk& desk);
+	void PendDeskQuantity(const int quantity); //онопняхрэ хглемхрэ йнк-бн йюяя
+	void Add(Desk* desk);
 	void DeleteLast();
 	void Sort();
+	void SetP(const int val);
+	int GetP() const;
+	void SetT(const int val);
+	int GetT() const;
 	~Worker();
 
 signals:
 	void quantityChanged(int quantity);
+	void changed_p(const int val);
+	void changed_t(const int val);
 
 private:
-	QueueEmulator* emu;
-	std::vector<Desk> desks;
-	bool is_sorted = false;
+	QueueEmulator* m_view;
+	std::vector<Desk*> m_desks;
+	bool m_isSorted = false;
+	int m_p;
+	int m_t;
 };

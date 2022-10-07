@@ -20,6 +20,7 @@ public:
     ~QueueEmulator();
 
 private:
-    Worker* worker;
+    Worker* m_Worker;
     Ui::QueueEmulator* ui;
+
 };
