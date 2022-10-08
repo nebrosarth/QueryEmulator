@@ -11,6 +11,8 @@ QueueEmulator::QueueEmulator(QWidget* parent)
 {
 	ui->setupUi(this);
 	m_Worker = new Worker(this);
+	m_Worker->SetP(ui->sb_p->value());
+	m_Worker->SetT(ui->sb_t->value() * 1000);
 	QThread* thread = new QThread();
 	m_Worker->moveToThread(thread);
 	connect(ui->sb_n, QOverload<int>::of(&QSpinBox::valueChanged), m_Worker, [this]()
@@ -21,9 +23,15 @@ QueueEmulator::QueueEmulator(QWidget* parent)
 		{
 			m_Worker->SetP(ui->sb_p->value());
 		});
-	connect(ui->dp_t, QOverload<double>::of(&QDoubleSpinBox::valueChanged), m_Worker, [this]()
+	connect(ui->sb_t, QOverload<int>::of(&QSpinBox::valueChanged), m_Worker, [this]()
 		{
-			m_Worker->SetT(ui->dp_t->value() * 1000);
+			m_Worker->SetT(ui->sb_t->value() * 1000);
+		});
+	connect(ui->pb_PauseResume, QOverload<bool>::of(& QPushButton::toggled), m_Worker, &Worker::SetRunning);
+	connect(ui->pb_PauseResume, QOverload<bool>::of(&QPushButton::toggled), this, [this](const bool running)
+		{
+			QString text = running ? u8"Остановить" : u8"Продолжить";
+			ui->pb_PauseResume->setText(text);
 		});
 }
 

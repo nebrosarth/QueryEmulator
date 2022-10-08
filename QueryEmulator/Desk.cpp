@@ -1,19 +1,19 @@
 #include "Desk.h"
-#include "qtimer.h"
-#include "UtilsService.h"
+#include "BTimer.h"
 
-Desk::Desk(DeskView* view, QObject *parent)
-	: QObject(parent)
+Desk::Desk(DeskView* view, QObject* parent)
+	: QObject(parent),
+	m_deskView(view)
 {
-	timer = new QTimer(this);
-	connect(timer, &QTimer::timeout, this, [&]()
+	m_timerServ = new BTimer(this);
+	connect(m_timerServ, &QTimer::timeout, this, [&]()
 		{
-			const int nextTime = UtilsService::GetRandomInt(0, m_maxTimeInterval);
-			timer->start(nextTime);
-			const int increment = UtilsService::GetRandomInt(0, m_maxPeopleIncome);
-			SetPeopleCount(m_peopleCount + increment);
+			if (m_peopleCount > 0)
+			{
+				DeltaPeopleCount(-1);
+			}
 		});
-	timer->start(m_maxTimeInterval);
+	//StartTimer();
 }
 
 Desk::Desk(const Desk& d)
@@ -24,17 +24,35 @@ Desk::Desk(const Desk& d)
 void Desk::SetPeopleCount(const int quantity)
 {
 	m_peopleCount = quantity;
-	changed_people(quantity);
+	changed_people(m_peopleCount);
 }
 
-void Desk::SetPeopleIncome(const int val)
+void Desk::DeltaPeopleCount(const int delta)
 {
-	m_peopleCount = val;
+	m_peopleCount += delta;
+	changed_people(m_peopleCount);
+	if (m_peopleCount > 0)
+	{
+		StartTimerRandom();
+	}
+}
+void Desk::SetRunning(const bool running)
+{
+	m_running = running;
+	if (running)
+		m_timerServ->resume();
+	else
+		m_timerServ->pause();
 }
 
-void Desk::SetTimeInterval(const int val)
+void Desk::StartTimerRandom()
 {
-	m_maxTimeInterval = val;
+	if (m_running)
+	{
+		const int min = m_deskView->GetMinServTime();
+		const int max = m_deskView->GetMaxServTime();
+		m_timerServ->start(min, max);
+	}
 }
 
 Desk::~Desk()

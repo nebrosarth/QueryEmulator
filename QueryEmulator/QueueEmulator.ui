@@ -46,10 +46,13 @@
           <item row="0" column="0">
            <widget class="QSpinBox" name="sb_n">
             <property name="minimum">
-             <number>1</number>
+             <number>0</number>
             </property>
             <property name="maximum">
              <number>999999999</number>
+            </property>
+            <property name="value">
+             <number>0</number>
             </property>
            </widget>
           </item>
@@ -63,12 +66,9 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="0" column="0">
-           <widget class="QDoubleSpinBox" name="dp_t">
+           <widget class="QSpinBox" name="sb_t">
             <property name="minimum">
-             <double>1.000000000000000</double>
-            </property>
-            <property name="maximum">
-             <double>99999999999.000000000000000</double>
+             <number>1</number>
             </property>
            </widget>
           </item>
@@ -84,10 +84,13 @@
           <item row="0" column="0">
            <widget class="QSpinBox" name="sb_p">
             <property name="minimum">
-             <number>1</number>
+             <number>0</number>
             </property>
             <property name="maximum">
              <number>999999999</number>
+            </property>
+            <property name="value">
+             <number>0</number>
             </property>
            </widget>
           </item>
@@ -98,6 +101,9 @@
         <widget class="QPushButton" name="pb_PauseResume">
          <property name="text">
           <string>Пауза</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

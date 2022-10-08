@@ -3,6 +3,8 @@
 #include <QObject>
 #include "DeskView.h"
 
+class BTimer;
+
 class Desk  : public QObject
 {
 	Q_OBJECT
@@ -11,8 +13,9 @@ public:
 	Desk(DeskView* view, QObject *parent=nullptr);
 	Desk(const Desk& d);
 	void SetPeopleCount(const int quantity);
-	void SetPeopleIncome(const int val);
-	void SetTimeInterval(const int val);
+	void DeltaPeopleCount(const int delta);
+	void SetRunning(const bool running);
+	void StartTimerRandom();
 
 	auto operator<=>(const Desk& d2) const
 	{
@@ -35,9 +38,9 @@ signals:
 	void changed_people(const int val);
 
 private:
-	QTimer* timer;
-	int m_peopleCount = 1;
+	DeskView* m_deskView;
+	BTimer* m_timerServ;
+	int timer_increment = 0;
+	int m_peopleCount = 0;
 	bool m_running = true;
-	int m_maxPeopleIncome = 0;
-	int m_maxTimeInterval = 1000;
 };

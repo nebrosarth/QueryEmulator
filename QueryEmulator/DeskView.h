@@ -14,9 +14,11 @@ class DeskView : public QWidget
 public:
 	DeskView(QWidget *parent = nullptr);
 	void SetPeopleCount(const int quantity); //хглемхрэ йнк-бн йюяя
-
+	int GetMinServTime() const;
+	int GetMaxServTime() const;
 	~DeskView();
 
 private:
 	Ui::DeskView *ui;
+	const int m_maxClients = 3;
 };

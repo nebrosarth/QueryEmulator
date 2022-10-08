@@ -55,6 +55,9 @@
     <ClCompile Include="UtilsService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BTimer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="DeskView.h">
@@ -70,6 +73,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="UtilsService.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="BTimer.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
