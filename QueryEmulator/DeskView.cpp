@@ -7,6 +7,10 @@ DeskView::DeskView(QWidget *parent)
 	, ui(new Ui::DeskView())
 {
 	ui->setupUi(this);
+	connect(ui->sb_maxServTime, &QSpinBox::valueChanged, ui->sb_minServTime, [this]()
+		{
+			ui->sb_minServTime->setMaximum(ui->sb_maxServTime->value());
+		});
 	const int layoutSize = ui->QueuesLayout->count();
 	ui->l_extra->setText("");
 }
@@ -45,6 +49,11 @@ int DeskView::GetMinServTime() const
 int DeskView::GetMaxServTime() const
 {
 	return ui->sb_maxServTime->value() * 1000;
+}
+
+Ui::DeskView* DeskView::GetUI() const
+{
+	return ui;
 }
 
 DeskView::~DeskView()

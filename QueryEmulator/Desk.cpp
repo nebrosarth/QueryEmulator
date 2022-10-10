@@ -1,8 +1,9 @@
 #include "Desk.h"
 #include "BTimer.h"
+#include "ui_DeskView.h"
 
 Desk::Desk(DeskView* view, QObject* parent)
-	: QObject(parent),
+	: QObject(view),
 	m_deskView(view)
 {
 	m_timerServ = new BTimer(this);
@@ -52,8 +53,24 @@ void Desk::StartTimerRandom()
 		const int min = m_deskView->GetMinServTime();
 		const int max = m_deskView->GetMaxServTime();
 		m_timerServ->start(min, max);
+		m_avgTime = (m_avgTime * m_passedClients + m_timerServ->m_time) / (m_passedClients + 1);
+		m_passedClients++;
+		auto deskView = GetView();
+		if (deskView)
+		{
+			deskView->GetUI()->l_avgTime->setText(u8"Среднее время: " + QString::number(m_avgTime));
+			deskView->GetUI()->l_qLength->setText(u8"Длина очереди: " + QString::number(m_peopleCount));
+		}
 	}
 }
 
+DeskView* Desk::GetView() const
+{
+	return m_deskView;
+}
+
 Desk::~Desk()
-{}
+{
+	m_timerServ->stop();
+	onDelete_givePeople(m_peopleCount);
+}

@@ -16,7 +16,8 @@ void BTimer::pause()
 
 void BTimer::resume()
 {
-	this->start(m_remainingTime);
+	if(!this->isActive())
+		this->start(m_remainingTime);
 }
 
 void BTimer::start(const int min, const int max)
@@ -27,6 +28,7 @@ void BTimer::start(const int min, const int max)
 
 void BTimer::start(const int msec)
 {
+	m_time = msec;
 	QTimer::start(msec);
 }
  

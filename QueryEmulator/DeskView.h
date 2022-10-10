@@ -16,6 +16,7 @@ public:
 	void SetPeopleCount(const int quantity); //хглемхрэ йнк-бн йюяя
 	int GetMinServTime() const;
 	int GetMaxServTime() const;
+	Ui::DeskView* GetUI() const;
 	~DeskView();
 
 private:

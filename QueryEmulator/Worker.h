@@ -15,7 +15,8 @@ public:
 	Worker(QueueEmulator* parent = nullptr);
 	void PendDeskQuantity(const int quantity); //онопняхрэ хглемхрэ йнк-бн йюяя
 	void Add(Desk* desk);
-	void AddPeople(Desk* desk, const int quantity);
+	void AddPeople(const int val);
+	void AddPeople2Desk(Desk* desk, const int quantity);
 	void SetRunning(const bool running);
 	void DeleteLast();
 	void Sort();
@@ -31,11 +32,12 @@ signals:
 	void changed_running(const bool running);
 
 private:
-	QueueEmulator* m_view;
-	BTimer* m_timerSpawn;
+	QueueEmulator* m_view = nullptr;
+	BTimer* m_timerSpawn = nullptr;
 	std::vector<Desk*> m_desks;
 	bool m_isSorted = false;
 	int m_p = 0;
 	int m_t = 1;
 	bool m_running;
+	int m_sparePeople = 0;
 };

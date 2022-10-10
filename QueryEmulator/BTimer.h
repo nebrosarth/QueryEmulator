@@ -14,6 +14,7 @@ public:
 	void start(const int min, const int max);
 	void start(const int msec);
 
+	int m_time = 0;
 private:
-	int m_remainingTime;
+	int m_remainingTime = 0;
 };
