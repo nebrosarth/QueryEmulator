@@ -3,6 +3,7 @@
 #include "Desk.h"
 #include "BTimer.h"
 #include "UtilsService.h"
+#include "ui_DeskView.h"
 
 Worker::Worker(QueueEmulator* parent)
 	: QObject(parent), m_view(parent)
@@ -37,10 +38,7 @@ void Worker::PendDeskQuantity(const int quantity)
 						m_sparePeople = 0;
 					}
 				});
-			//connect(deskView, &QWidget::destroyed, desk, [&]()
-			//	{
-			//		desk->suicide();
-			//	});
+			connect(desk, &Desk::changed_people, this, &Worker::UpdateMostFreeCrowded);
 			Add(desk);
 		}
 	}
@@ -104,6 +102,10 @@ void Worker::DeleteLast()
 	auto deskView = item->GetView();
 	m_desks.pop_back();
 	if (deskView)
+		if (deskView == m_mostCrowded)
+			m_mostCrowded = nullptr;
+		if (deskView == m_mostFree)
+			m_mostFree = nullptr;
 		delete deskView;
 }
 
@@ -126,6 +128,22 @@ void Worker::StartTimerRandom()
 		AddPeople(new_people + m_sparePeople);
 		m_sparePeople = 0;
 		m_timerSpawn->start(1, m_t);
+	}
+}
+
+void Worker::UpdateMostFreeCrowded()
+{
+	if (!m_desks.empty())
+	{
+		Sort();
+		if (m_mostFree)
+			m_mostFree->GetUI()->layout->setStyleSheet("background-color: white");
+		if (m_mostCrowded)
+			m_mostCrowded->GetUI()->layout->setStyleSheet("background-color: white");
+		m_mostFree = m_desks.front()->GetView();
+		m_mostCrowded = m_desks.back()->GetView();
+		m_mostFree->GetUI()->layout->setStyleSheet("background-color: green");
+		m_mostCrowded->GetUI()->layout->setStyleSheet("background-color: red");
 	}
 }
 

@@ -6,6 +6,7 @@
 class Desk;
 class QueueEmulator;
 class BTimer;
+class DeskView;
 
 class Worker : public QObject
 {
@@ -21,6 +22,7 @@ public:
 	void DeleteLast();
 	void Sort();
 	void StartTimerRandom();
+	void UpdateMostFreeCrowded();
 
 	void SetP(const int val);
 	int GetP() const;
@@ -35,6 +37,8 @@ private:
 	QueueEmulator* m_view = nullptr;
 	BTimer* m_timerSpawn = nullptr;
 	std::vector<Desk*> m_desks;
+	DeskView* m_mostFree = nullptr;
+	DeskView* m_mostCrowded = nullptr;
 	bool m_isSorted = false;
 	int m_p = 0;
 	int m_t = 1;
